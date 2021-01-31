@@ -1,7 +1,8 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from .models import *
 from .forms import * 
 # Create your views here.
@@ -106,3 +107,13 @@ def handleLogout(request):
     messages.success(request,'you have successfully logged Out.')
     return redirect('/')
 
+def changePass(request):
+    if request.method == 'POST':
+        fm = PasswordChangeForm(user=request.user, data=request.POST)
+        if fm.is_valid():
+            fm.save()
+            update_session_auth_hash(request, fm.user)
+            return redirect('/')
+    else:
+        fm = PasswordChangeForm(user=request.user)
+    return render(request, 'task/changepass.html',{'form':fm})

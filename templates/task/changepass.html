@@ -1,0 +1,22 @@
+{% extends 'task/base.html' %}
+
+{% block title %} Change Password {% endblock title %} 
+
+{% block css %}
+{% endblock css %}
+{% block body %}
+<form method="post" action="">
+{% csrf_token %}
+{% if form.non_field_error %}
+    {% for error in form.non_field_error %}
+        <p>{{ error }}</p>
+    {% endfor %}
+{% endif %}
+
+{% for fm in form %}
+
+{{ fm.label_tag }} {{ fm}} {{fm.error|striptags}}<br/><br/>
+{% endfor %}
+<input class="btn btn-sm btn-primary" type="submit" value="save" name="save">
+</form>
+{% endblock %}
