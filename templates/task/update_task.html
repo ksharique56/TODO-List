@@ -1,0 +1,15 @@
+{% extends 'task/base.html' %}
+
+{% block title %} Update Task {% endblock title %} 
+
+{% block css %}
+{% endblock css %}
+{% block body %}
+<div class="my-3">
+<form method="post" action="">
+{% csrf_token %}
+{{form}}<br/>
+<input class="btn btn-primary" type="submit" name="update Task" >
+</form>
+</div>
+{% endblock %}
